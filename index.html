@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixed Luxury Gallery with Lightbox</title>
+    <title>Farm Gallery</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,9 +24,14 @@
         }
 
         /* 🔥 WORD 'GALLERY' FIXED DEAD CENTER */
+        .gallery-section {
+            position: relative;
+            min-height: 120vh;
+        }
+
         .gallery-title {
-            position: absolute;
             position: fixed;
+
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -304,7 +309,9 @@
         }
 
         .footer-col:nth-child(1),
-        .footer-col:nth-child(2) {
+        .footer-col:nth-child(2),
+        .footer-col:nth-child(4),
+        .footer-col:nth-child(5) {
             align-items: flex-start;
             text-align: left;
         }
@@ -511,12 +518,14 @@
         </ul>
 
     </nav>
-    <h1 class="gallery-title" id="title">GALLERY</h1>
+    <section class="gallery-section">
 
-    <div class="perspective-container">
-        <div class="grid" id="grid"></div>
-    </div>
+        <h1 class="gallery-title">GALLERY</h1>
 
+        <div class="perspective-container">
+            <div class="grid" id="grid"></div>
+        </div>
+    </section>
     <div class="popup" id="popup">
         <span class="close" id="closeBtn">✕</span>
         <div class="arrow left" id="prev">&#10094;</div>
@@ -771,6 +780,26 @@
                     rotateX(${-y * 10}deg)
                 `;
             });
+        });
+        function toggleMenu() {
+            document.querySelector(".nav-menu").classList.toggle("active");
+        }
+
+        function closeMenu() {
+            document.querySelector(".nav-menu").classList.remove("active");
+        }
+        const title = document.querySelector(".gallery-title");
+        const footer = document.querySelector("footer");
+
+        window.addEventListener("scroll", () => {
+            const footerTop = footer.getBoundingClientRect().top;
+            const screenHeight = window.innerHeight;
+
+            if (footerTop < screenHeight) {
+                title.style.opacity = "0";   // hide near footer
+            } else {
+                title.style.opacity = "1";   // show normally
+            }
         });
     </script>
 </body>
